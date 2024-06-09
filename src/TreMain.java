@@ -17,7 +17,8 @@ public class TreMain {
     static {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
-
+//найти координаты найденного изображения (на нулевом и на всех последующих)
+    //коэфициент совпадения
     private static Mat largeImage; // Матрица для хранения исходного изображения
     private static Rectangle roiRect; // Прямоугольник для выделения области интереса (ROI)
     private static boolean drawing; // Флаг, указывающий, выделяется ли ROI в данный момент
@@ -27,7 +28,7 @@ public class TreMain {
     // Точка входа в программу
     public static void main(String[] args) {
         // Загрузка изображения из файла
-        largeImage = Imgcodecs.imread("C:\\Users\\ivahn\\IdeaProjects\\tsuab\\src\\img\\big12.jpeg");
+        largeImage = Imgcodecs.imread("C:\\Users\\ivahn\\IdeaProjects\\tsuab\\src\\img\\big\\big12.jpeg");
 
         // Создание окна приложения
         JFrame frame = new JFrame("Select ROI");

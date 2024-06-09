@@ -11,8 +11,18 @@ public class Main {
 
     public static void main(String[] args) {
         // Загружаем изображения
-        Mat largeImage = Imgcodecs.imread("C:\\Users\\ivahn\\IdeaProjects\\tsuab\\src\\img\\big12.jpeg");
-        Mat smallImage = Imgcodecs.imread("C:\\Users\\ivahn\\IdeaProjects\\tsuab\\src\\img\\small13.jpeg");
+        String largeImagePath = "C:\\Users\\ivahn\\IdeaProjects\\tsuab\\src\\img\\big\\big12.jpeg";
+        String smallImagePath = "C:\\Users\\ivahn\\IdeaProjects\\tsuab\\src\\img\\small\\small112.jpeg";
+        // Проверяем существование файлов
+        if (!new java.io.File(largeImagePath).exists() || !new java.io.File(smallImagePath).exists()) {
+            System.out.println("Один или оба файла не существуют или недоступны.");
+            return;
+        }
+
+        // Загружаем изображения
+        Mat largeImage = Imgcodecs.imread(largeImagePath);
+        Mat smallImage = Imgcodecs.imread(smallImagePath);
+
 
         // Применяем фильтр Гаусса к маленькому изображению
         Imgproc.GaussianBlur(smallImage, smallImage, new org.opencv.core.Size(5, 5), 0);
@@ -26,6 +36,9 @@ public class Main {
         // Находим где находится изображение маленькое
         Core.MinMaxLocResult mmr = Core.minMaxLoc(result);
         Point matchLoc = mmr.maxLoc;
+
+        // Выводим координаты верхнего левого угла рамки в консоль
+        System.out.println("Координаты верхнего левого угла рамки: (" + matchLoc.x + ", " + matchLoc.y + ")");
 
         // Рисуем прямоугольник вокруг найденного изображения
         Imgproc.rectangle(largeImage, matchLoc, new Point(matchLoc.x + smallImage.width(), matchLoc.y + smallImage.height()), new Scalar(0, 255, 0), 2);
